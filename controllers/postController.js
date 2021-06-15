@@ -48,8 +48,31 @@ const crearPost = async (req,res)=>{
     
 
 }
+const actualizarPost = async (req,res)=>{
+    const{idpost}=req.params
+    const{titulo,imagen,fecha_creacion,contenido,fk_idcategoria}=req.body
+
+    const actualizarPost = await Post.update({
+        titulo,
+        imagen,
+        fecha_creacion,
+        contenido,
+        fk_idcategoria
+         }
+        ,{ where:
+            {
+                idpost
+            }});
+            
+            res.json({message: ` Post ${titulo} actualizado con exito`})
+       
+
+    
+
+}
 export{
     obtenerPosts,
     obtenerPostID,
-    crearPost
+    crearPost,
+    actualizarPost
 }
