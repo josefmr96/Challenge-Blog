@@ -4,7 +4,7 @@ const obtenerPosts = async (req,res)=>{
     //encontrar un usuario con el mismo correo
     const obtenerPosts = await Post.findAll({ 
         include:
-            [{model: Categorias,  attributes: ['categorias'], required: true}],
+            [{model: Categorias, attributes:['categorias']}],
         order:
             [['fecha_creacion', 'DESC']], 
         attributes: 
@@ -14,6 +14,23 @@ const obtenerPosts = async (req,res)=>{
     
 
 }
+const obtenerPostID = async (req,res)=>{
+    //encontrar un usuario con el mismo correo
+    const{idpost}=req.params
+
+    const obtenerPostID = await Post.findOne({ where:{idpost}, include:
+        [{model: Categorias}]});
+        if(obtenerPostID){
+
+            res.json({obtenerPostID});
+        }else{
+            res.status(404).json({message:`El  post con el id ${idpost} no ha sido encontrado`})
+        }
+
+    
+
+}
 export{
-    obtenerPosts
+    obtenerPosts,
+    obtenerPostID
 }
