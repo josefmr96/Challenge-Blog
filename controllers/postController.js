@@ -70,9 +70,28 @@ const actualizarPost = async (req,res)=>{
     
 
 }
+const eliminarPost = async (req,res)=>{
+
+    const{idpost}=req.params
+
+    const eliminarPost = await Post.destroy({
+        where: {
+            idpost
+            
+        },
+            
+    });
+            
+            res.json({message: `Post Eliminado con exito!`})
+       
+
+    
+
+}
 export{
     obtenerPosts,
     obtenerPostID,
     crearPost,
-    actualizarPost
+    actualizarPost,
+    eliminarPost
 }
