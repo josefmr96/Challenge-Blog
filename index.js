@@ -12,6 +12,8 @@ db.authenticate()
 
 const port = process.env.PORT || 4000;
 
+//agregar body parser
+app.use(express.urlencoded({extended:true}));
 
 app.use('/', router);
 

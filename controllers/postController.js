@@ -1,7 +1,7 @@
 import {Post} from '../models/Posts.js';
 import { Categorias } from '../models/Categorias.js';
 const obtenerPosts = async (req,res)=>{
-    //encontrar un usuario con el mismo correo
+
     const obtenerPosts = await Post.findAll({ 
         include:
             [{model: Categorias, attributes:['categorias']}],
@@ -15,7 +15,7 @@ const obtenerPosts = async (req,res)=>{
 
 }
 const obtenerPostID = async (req,res)=>{
-    //encontrar un usuario con el mismo correo
+
     const{idpost}=req.params
 
     const obtenerPostID = await Post.findOne({ where:{idpost}, include:
@@ -30,7 +30,26 @@ const obtenerPostID = async (req,res)=>{
     
 
 }
+const crearPost = async (req,res)=>{
+
+    const{titulo,imagen,fecha_creacion,contenido,fk_idcategoria}=req.body
+
+    const crearPost = await Post.create({
+        titulo,
+        imagen,
+        fecha_creacion,
+        contenido,
+        fk_idcategoria
+    });
+        
+            res.json({crearPost})
+       
+
+    
+
+}
 export{
     obtenerPosts,
-    obtenerPostID
+    obtenerPostID,
+    crearPost
 }
