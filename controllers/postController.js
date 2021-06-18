@@ -1,5 +1,6 @@
 import {Post} from '../models/Posts.js';
 import { Categorias } from '../models/Categorias.js';
+
 const obtenerPosts = async (req,res)=>{
 
     const obtenerPosts = await Post.findAll({ 
@@ -32,17 +33,28 @@ const obtenerPostID = async (req,res)=>{
 }
 const crearPost = async (req,res)=>{
 
-    const{titulo,imagen,fecha_creacion,contenido,fk_idcategoria}=req.body
 
-    const crearPost = await Post.create({
-        titulo,
-        imagen,
-        fecha_creacion,
-        contenido,
-        fk_idcategoria
-    });
-        
-            res.json({crearPost})
+    const{titulo,imagen,fecha_creacion,contenido,fk_idcategoria}=req.body
+     
+
+        const extensiones = /(.jpg|.jpeg|.png|.gif)$/i;
+
+        if(!extensiones.exec(imagen)) return res.status(401).json({message:'No se pudo crear el post, la imagen no es valida por favor subir formato valido'});
+        const crearPost = await Post.create({
+            titulo,
+            imagen,
+            fecha_creacion,
+            contenido,
+            fk_idcategoria
+        });
+            
+                res.json({message:'extension de la imagen valida',crearPost})
+
+   
+
+   
+
+  
        
 
     
